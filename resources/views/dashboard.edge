@@ -1,0 +1,52 @@
+@layout('layouts/dashboard')
+@set('title', 'Dashboard')
+@section('content')
+<div class="flex-fill d-flex flex-column justify-content-center py-4">
+  <div class="container-tight py-6">
+      <div class="text-center mb-4">
+          <a href=".">DSMG Shortener | URL Shortener</a>
+      </div>
+  <form class="card card-md" id="form">
+          <div class="card-body">
+              <h2 class="card-title text-center mb-4">Add Shortened Link</h2>
+              <div class="mb-3">
+                  <label class="form-label">Long URL</label>
+                  <input type="url" name="lurl" value="" required class="form-control" placeholder="Enter Long URL">
+              </div>
+              <div class="mb-2">
+                  <label class="form-label">
+                      Alias
+                  </label>
+                  <div class="input-group input-group-flat">
+                      <input type="text" name="alias" value="" class="form-control" placeholder="Alias">
+
+                  </div>
+              </div>
+              <div class="form-footer">
+                  <button type="submit" class="btn btn-primary w-100">Shorten</button>
+              </div>
+          </div>
+      </form>
+    </div>
+</div>
+@end
+@section('footer')
+<script type="text/javascript">
+  $('#form').on("submit", function(event) {
+    console.log('submitting');
+    event.preventDefault();
+    $.ajax({
+        url: "/dashboard",
+        method: "POST",
+        dataType: "JSON",
+        data: $('#form').serialize(),
+        success: function(data) {
+          if(data == true){
+            alert('success');
+          }
+
+        }
+    });
+  });
+</script>
+@end
